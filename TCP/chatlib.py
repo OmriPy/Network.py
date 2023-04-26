@@ -1,4 +1,4 @@
-from typing import List, Tuple, Dict
+from typing import List, Tuple
 
 # Protocol Constants
 
@@ -10,28 +10,7 @@ MAX_MSG_LENGTH = MSG_HEADER_LENGTH + MAX_DATA_LENGTH  # Max size of total messag
 DELIMITER = "|"  # Delimiter character in protocol
 DATA_DELIMITER = "#"  # Delimiter in the data part of the message
 
-# Protocol Messages 
-# In these dictionaries we will have all the client and server command names
-'''
-LOGIN_MSG = "login_msg"
-LOGOUT_MSG = "logout_msg"
-SCORE = "score"
-HIGH_SCORE = "high_score"
-GET_QUESTION = "get_question"
-SEND_ANSWER = "send_answer"
-LOGGED_USERS = "logged_users"
-DISCONNECTION = 'client_disconnected'
-
-PROTOCOL_CLIENT: Dict[str, str] = {
-	LOGIN_MSG: "LOGIN",
-	LOGOUT_MSG: "LOGOUT",
-	SCORE: "MY_SCORE",
-	HIGH_SCORE: "HIGHSCORE",
-	GET_QUESTION: "GET_QUESTION",
-	SEND_ANSWER: "SEND_ANSWER",
-	LOGGED_USERS: "LOGGED",
-	DISCONNECTION: 'DISCONNECTION'
-}'''
+# Protocol Messages
 
 class Protocol_Client:
 	LOGIN = 'LOGIN'
@@ -44,28 +23,6 @@ class Protocol_Client:
 	DISCONNECTION = 'DISCONNECTION'
 
 
-
-'''
-LOGIN_OK_MSG = "login_ok_msg"
-LOGIN_FAILED_MSG = "login_failed_msg"
-YOUR_SCORE = 'your_score_msg'
-ALL_SCORES = 'reply_to_highscore_msg'
-ANSWER_TO_LOGGED = 'answer_to_logged_users'
-YOUR_QUESTION = 'answer_to_get_question'
-CORRECT_ANSWER = 'correct_answer'
-WRONG_ANSWER = 'wrong_answer'
-
-PROTOCOL_SERVER = {
-	LOGIN_OK_MSG: "LOGIN_OK",
-	LOGIN_FAILED_MSG: "ERROR",
-	YOUR_SCORE: 'YOUR_SCORE',
-	ALL_SCORES: 'ALL_SCORE',
-	ANSWER_TO_LOGGED: 'LOGGED_ANSWER',
-	YOUR_QUESTION: 'YOUR_QUESTION',
-	CORRECT_ANSWER: 'CORRECT_ANSWER',
-	WRONG_ANSWER: 'WRONG_ANSWER'
-}'''
-
 class Protocol_Server:
 	LOGIN_OK = 'LOGIN_OK'
 	ERROR = 'ERROR'
@@ -77,11 +34,9 @@ class Protocol_Server:
 	WRONG_ANSWER = 'WRONG_ANSWER'
 
 
-# Other constants
 
-ERROR_RETURN = None  # What is returned in case of an error
+ERROR_RETURN = None
 
-## My constants
 FIELDS_LENGTH = 3 # exact length of the fields
 
 
@@ -89,7 +44,7 @@ class Errors:
 	USER_NOT_LOGGED_IN = "User isn't logged in"
 	INCORRECT_PASSWORD = "Incorrect password"
 	UNKNOWN_COMMAND = "Unknown command"
-	CTRL_C_SERVER = "The server was disconnected by ctrl+c"
+	CTRL_C_SERVER = "\nThe server was disconnected by ctrl+c"
 	CTRL_C_CLIENT = "\nThe client was disconnected by ctrl+c"
 	INAPPROPRIATE_REQUEST = 'A requst that is not LOGIN from a user that hasn\'t logged in yet'
 
