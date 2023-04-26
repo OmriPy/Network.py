@@ -12,7 +12,7 @@ DATA_DELIMITER = "#"  # Delimiter in the data part of the message
 
 # Protocol Messages 
 # In these dictionaries we will have all the client and server command names
-
+'''
 LOGIN_MSG = "login_msg"
 LOGOUT_MSG = "logout_msg"
 SCORE = "score"
@@ -20,6 +20,7 @@ HIGH_SCORE = "high_score"
 GET_QUESTION = "get_question"
 SEND_ANSWER = "send_answer"
 LOGGED_USERS = "logged_users"
+DISCONNECTION = 'client_disconnected'
 
 PROTOCOL_CLIENT: Dict[str, str] = {
 	LOGIN_MSG: "LOGIN",
@@ -28,10 +29,23 @@ PROTOCOL_CLIENT: Dict[str, str] = {
 	HIGH_SCORE: "HIGHSCORE",
 	GET_QUESTION: "GET_QUESTION",
 	SEND_ANSWER: "SEND_ANSWER",
-	LOGGED_USERS: "LOGGED"
-}
+	LOGGED_USERS: "LOGGED",
+	DISCONNECTION: 'DISCONNECTION'
+}'''
+
+class Protocol_Client:
+	LOGIN = 'LOGIN'
+	LOGOUT = 'LOGOUT'
+	MY_SCORE = 'MY_SCORE'
+	HIGHSCORE = 'HIGHSCORE'
+	GET_QUESTION = 'GET_QUESTION'
+	SEND_ANSWER = 'SEND_ANSWER'
+	LOGGED = 'LOGGED'
+	DISCONNECTION = 'DISCONNECTION'
 
 
+
+'''
 LOGIN_OK_MSG = "login_ok_msg"
 LOGIN_FAILED_MSG = "login_failed_msg"
 YOUR_SCORE = 'your_score_msg'
@@ -50,7 +64,17 @@ PROTOCOL_SERVER = {
 	YOUR_QUESTION: 'YOUR_QUESTION',
 	CORRECT_ANSWER: 'CORRECT_ANSWER',
 	WRONG_ANSWER: 'WRONG_ANSWER'
-}
+}'''
+
+class Protocol_Server:
+	LOGIN_OK = 'LOGIN_OK'
+	ERROR = 'ERROR'
+	YOUR_SCORE = 'YOUR_SCORE'
+	ALL_SCORE = 'ALL_SCORE'
+	LOGGED_ANSWER = 'LOGGED_ANSWER'
+	YOUR_QUESTION = 'YOUR_QUESTION'
+	CORRECT_ANSWER = 'CORRECT_ANSWER'
+	WRONG_ANSWER = 'WRONG_ANSWER'
 
 
 # Other constants
