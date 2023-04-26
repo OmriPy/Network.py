@@ -1,5 +1,5 @@
 # Network.py
-The code I wrote during the course named [network.py](https://courses.campus.gov.il/courses/course-v1:CS+GOV_CS_networkpy103+2020_1/course/).
+The code I wrote during the course [network.py](https://courses.campus.gov.il/courses/course-v1:CS+GOV_CS_networkpy103+2020_1/course/).
 ## Details
 The course focuses on implementing server - client protocols in python. It also explains the differences between TCP and UDP.
 ## Goal
