@@ -2,7 +2,7 @@ from socket import socket, AF_INET, SOCK_STREAM
 from typing import Tuple, Dict, Callable
 import chatlib
 
-SERVER_IP = "127.0.0.1"  # Our server will run on same computer as client
+SERVER_IP = '127.0.0.1'
 SERVER_PORT = 5678
 
 # HELPER SOCKET METHODS
@@ -56,9 +56,9 @@ def login(conn: socket):
 			conn,
 			chatlib.Protocol_Client.LOGIN,
 			data)
-		code, data = recv_message_and_parse(conn)
-		if code == chatlib.Protocol_Server.ERROR:
-			print(f"Login Failed - {data}\n")
+		cmd, data = recv_message_and_parse(conn)
+		if cmd == chatlib.Protocol_Server.ERROR:
+			print(f"Login Failed: {data}\n")
 			if data == chatlib.Errors.CTRL_C_SERVER:
 				error_and_exit(data)
 		else:
@@ -70,7 +70,7 @@ def logout(conn: socket):
 	build_and_send_message(
 		conn,
 		chatlib.Protocol_Client.LOGOUT,
-		"")
+		'')
 
 
 def build_send_recv_parse(conn: socket, code: str, data: str) -> Tuple[str, str] | Tuple[chatlib.ERROR_RETURN, chatlib.ERROR_RETURN]:
@@ -79,69 +79,68 @@ def build_send_recv_parse(conn: socket, code: str, data: str) -> Tuple[str, str]
 
 
 def get_score(conn: socket):
-	msg = build_send_recv_parse(
+	cmd, data = build_send_recv_parse(
 		conn,
 		chatlib.Protocol_Client.MY_SCORE,
 		'')
-	if msg == (chatlib.ERROR_RETURN, chatlib.ERROR_RETURN):
+	if (cmd, data) == (chatlib.ERROR_RETURN, chatlib.ERROR_RETURN):
 		print('Some error occured!')
 		return
-	print(f'Score:\t{msg[1]}')
+	print(f'Score:\t{data}')
 
 
 def get_highscore(conn: socket):
-	msg = build_send_recv_parse(conn,
+	cmd, data = build_send_recv_parse(
+		conn,
 		chatlib.Protocol_Client.HIGHSCORE,
 		'')
-	if msg == (chatlib.ERROR_RETURN, chatlib.ERROR_RETURN):
+	if (cmd, data) == (chatlib.ERROR_RETURN, chatlib.ERROR_RETURN):
 		print('Some error occured!')
 		return
-	print(f'Highscore:\n{msg[1]}')
+	print(f'Highscore:\n{data}')
 
 
 def play_question(conn: socket):
-	code, data = build_send_recv_parse(
+	cmd, data = build_send_recv_parse(
 		conn,
 		chatlib.Protocol_Client.GET_QUESTION,
 		'')
-	if (code, data) == (chatlib.ERROR_RETURN, chatlib.ERROR_RETURN):
+	if (cmd, data) == (chatlib.ERROR_RETURN, chatlib.ERROR_RETURN):
 		print('Some error occured!')
 		return
 	data = data.split(chatlib.DATA_DELIMITER)
-	if len(data) != 6 or code != chatlib.Protocol_Server.YOUR_QUESTION:
+	if len(data) != 6 or cmd != chatlib.Protocol_Server.YOUR_QUESTION:
 		print('Some error occured!')
 		return
 	id = data[0]
 	question = data[1]
 	possible_answers = [data[i] for i in range(2, len(data))]
-	print(question + '\n' +
-        f'1. {possible_answers[0]}\n' + 
-		f'2. {possible_answers[1]}\n' + 
-		f'3. {possible_answers[2]}\n' + 
-		f'4. {possible_answers[3]}\n')
+	print(question)
+	for i in range(len(possible_answers)):
+		print(f'{i+1}. {possible_answers[i]}')
 	choice = input("Enter answer number [1-4]:\t")
-	if int(choice) < 1 or int(choice) > 4:
+	if not choice.isnumeric() or int(choice) < 1 or int(choice) > 4:
 		print('Some error occured!')
 		return
-	code, data = build_send_recv_parse(
+	cmd, data = build_send_recv_parse(
 		conn,
 		chatlib.Protocol_Client.SEND_ANSWER,
 		f'{id}{chatlib.DATA_DELIMITER}{choice}')
-	if (code, data) == (chatlib.ERROR_RETURN, chatlib.ERROR_RETURN):
+	if (cmd, data) == (chatlib.ERROR_RETURN, chatlib.ERROR_RETURN):
 		print('Some error occured!')
 		return
-	if code == chatlib.Protocol_Server.CORRECT_ANSWER:
+	if cmd == chatlib.Protocol_Server.CORRECT_ANSWER:
 		print("Correct!")
-	elif code == chatlib.Protocol_Server.WRONG_ANSWER:
+	elif cmd == chatlib.Protocol_Server.WRONG_ANSWER:
 		print(f'Wrong!\nThe correct answer was {data}')
 
 
 def get_logged_users(conn: socket):
-	code, data = build_send_recv_parse(
+	cmd, data = build_send_recv_parse(
 		conn,
 		chatlib.Protocol_Client.LOGGED,
 		'')
-	if (code, data) == (chatlib.ERROR_RETURN, chatlib.ERROR_RETURN):
+	if (cmd, data) == (chatlib.ERROR_RETURN, chatlib.ERROR_RETURN):
 		print('Some error occured!')
 		return
 	print(data)
