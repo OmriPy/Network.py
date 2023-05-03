@@ -286,36 +286,6 @@ def handle_client_message(conn: socket, cmd: str, data: str):
 
 
 def main():
-	'''
-	while True: # for each client
-		cmd = ''
-		try:
-			client, client_address = server.accept()
-		except KeyboardInterrupt:
-			print(f"\n{chatlib.Errors.CTRL_C_SERVER}")
-			try:
-				client.close()
-			except UnboundLocalError: # if no client is connected
-				pass
-			server.close()
-			return
-		print(f"\nNew client has joined!\t{client.getpeername()}")
-		while cmd != chatlib.PROTOCOL_CLIENT.get(chatlib.LOGOUT_MSG): # for each command
-			try:
-				cmd, data = recv_message_and_parse(client)
-				if (cmd, data) == (chatlib.ERROR_RETURN, chatlib.ERROR_RETURN):
-					print('Some error occured!')
-					break
-				else:
-					handle_client_message(client, cmd, data)
-			except KeyboardInterrupt:
-				print(f"\n{chatlib.Errors.CTRL_C_SERVER}")
-				send_error(client, chatlib.Errors.CTRL_C_SERVER)
-				client.close()
-				server.close()
-				return
-	'''
-
 	global users
 	global questions
 	global messages_to_send
